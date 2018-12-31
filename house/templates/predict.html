@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="row row-offcanvas row-offcanvas-right">
+  <!-- Main Content -->
+  <div class="col-xs-12 col-sm-12">
+    <div class="jumbotron">
+      <h2 style="text-align:center">Demo Dự Đoán Giá Nhà Ở</h2>
+      <ul>
+        <li>Dự đoán giá nhà dựa trên mô hình hồi quy tuyến tính. Người dùng sẽ không được tiếp xúc trực tiếp với mô hình, mà thay vào đó chỉ là cung cấp các thông số cần thiết cho máy tính. Dựa vào các dữ liệu đó, máy tính sẽ cho người . Người
+          dùng sẽ chỉ nhập một số thông tin như: căn nhà mình tìm có tổng số bao nhiêu phòng, có bao nhiêu phòng ngủ, bao nhiêu phòng tắm, tổng diện tích căn nhà là bao nhiêu,... để từ đố máy tính có thể đưa ra một dự đoán về giá cho căn nhà phù
+          hợp với những thông tin mà người dùng đã lựa chọn.</li>
+        <li>Vì giá nhà phụ thuộc vào từng địa phương, nên hầu hết các trang web dự đoán giá nhà sẽ có các mô hình dự đoán cho từng khu vực địa phương và các mô hình này sẽ phải được cập nhật thường xuyên để theo kịp số liệu thực tế gần đây nhất.
+          Nhiều lần mô hình phân cụm lân cận gần nhất cũng được sử dụng.</li>
+        <li>Bản demo này chỉ để cho chúng ta thấy một mô hình dự đoán sẽ hoạt động như thế nào trên các trang website.</li>
+        <li>Một số ứng dụng khác của mô hình hồi quy tuyến tính là: dự đoán kết quả sức khỏe trong y học, dự đoán giá cổ phiếu trong tài chính,...</li>
+      </ul>
+    </div>
+    <form id="demo-form" name="demo-form" action="{% url 'house:predict'%}" method="POST">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-xs-3 col-lg-2">
+          <div class="form-group">
+            <label class="control-label">Tổng số phòng</label>
+          <!-- <input type="number" min="1" max="5" class="span3 form-control" name="TongSoPhong" placeholder="----" required> -->
+            {{form.tongsophong}}
+          </div>
+        </div>
+        <div class="col-xs-3 col-lg-2">
+          <div class="form-group field-homedata-bedrooms required">
+            <label class="control-label">Số phòng ngủ</label>
+            <!-- <input type="number" min="1" max="5" class="span3 form-control" name="SoPhongNgu" placeholder="----" required> -->
+            {{form.sophongngu}}
+          </div>
+        </div>
+        <div class="col-xs-3 col-lg-2">
+          <div class="form-group">
+            <label class="control-label">Số phòng tắm</label>
+            <!-- <input type="number" min="1" max="5" class="span3 form-control" name="SoPhongTam" placeholder="----" required> -->
+            {{form.sophongtam}}
+          </div>
+        </div>
+        <div class="col-xs-3 col-lg-2">
+          <div class="form-group">
+            <label class="control-label">Diện tích</label>
+            <!-- <input type="number" min="1" max="1000" step="0.1" class="span3 form-control" name="DienTich" placeholder="----" required> -->
+            {{form.dientich}}
+          </div>
+        </div>
+        <div class="col-xs-3 col-lg-2">
+          <div class="form-group">
+            <label class="control-label">Năm xây dựng</label>
+            <!-- <input type="date" class="span3 form-control" name="NamXayDung" placeholder="----" required> -->
+            {{form.namxaydung}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2 form-group">
+          <button type="submit" class="btn btn-success" name="DuDoan">Dự đoán</button>
+        </div>
+        <div class="col-md-9">
+          <h4><em>Giá nhà được dự đoán là: <mark>{{gia}}</mark> $</em></h4>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- End Main Content -->
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="container">
+  <h1>About Me</h1>
+  <div class="row">
+    <div class="col-lg-8">
+      <p class="lead">Hello, everyone !<br>My name is Pham Ba Tinh. I  am 23 years old. I am studying Information Technology at University of Transport and Communication in Ho Chi Minh City.</p>
+       <p class="lead">This is my research on Machine Learning:</p>
+      <ul class="lead">
+        <li>Research on Linear Regression Algorithm.</li>
+        <li>Applying algorithms in estimating housing prices.</li>
+        <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li>
+        <li>Minimal custom CSS so you are free to explore your own unique design options</li>
+      </ul>
+    </div>
+    <div class="col-lg-4 text-center">
+      <img class="rounded-circle img-fluid d-block mx-auto" src="{% static '/images/ava.jpeg' %}" alt="my_avatar">
+      <h3>Pham Ba Tinh <small>Student</small></h3>
+      <p>Studying Infomation Technology at <strong>University of Transport and Communication</strong> in <strong>Ho Chi Minh City</strong></p>
+    </div>
+
+  </div>
+  {% endblock %}
