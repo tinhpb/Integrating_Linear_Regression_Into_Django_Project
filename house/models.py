@@ -29,3 +29,6 @@ class Houses(models.Model):
     Vacant = models.IntegerField()
     Free_Parking = models.IntegerField()
     askprice = models.IntegerField()
+
+    def __str__(self):
+        return self.num_room
