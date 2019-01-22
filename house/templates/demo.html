@@ -16,119 +16,53 @@
     <form id="demo-form" name="demo-form" action="{% url 'house:predict'%}" method="POST">
       {% csrf_token %}
       <div class="row">
-        <div class="col-xs-3 col-lg-2">
+        <div class="col-xs-3 col-lg-3">
           <div class="form-group">
-            <label class="control-label">Tổng số phòng</label>
+            <label class="control-label">Số phòng khách</label>
           <!-- <input type="number" min="1" max="5" class="span3 form-control" name="TongSoPhong" placeholder="----" required> -->
-            {{form.tongsophong}}
+            {{form.sophongkhach}}
           </div>
         </div>
-        <div class="col-xs-3 col-lg-2">
+        <div class="col-xs-3 col-lg-3">
           <div class="form-group field-homedata-bedrooms required">
             <label class="control-label">Số phòng ngủ</label>
             {{form.sophongngu}}
           </div>
         </div>
-        <div class="col-xs-3 col-lg-2">
+        <div class="col-xs-3 col-lg-3">
           <div class="form-group">
             <label class="control-label">Số phòng tắm</label>
             {{form.sophongtam}}
           </div>
         </div>
-        <div class="col-xs-3 col-lg-2">
+        <div class="col-xs-3 col-lg-3">
           <div class="form-group">
             <label class="control-label">Diện tích</label>
             {{form.dientich}}
           </div>
         </div>
-        <div class="col-xs-3 col-lg-2">
+        <div class="col-xs-3 col-lg-3">
           <div class="form-group">
             <label class="control-label">Năm xây dựng</label>
             {{form.namxaydung}}
           </div>
         </div>
-        <div class="col-xs-3 col-lg-2">
+        <div class="col-xs-3 col-lg-3">
           <div class="form-group">
-            <label class="control-label">num_parking</label>
-            {{form.num_parking}}
+            <label class="control-label">Khoảng cách tới trung tâm TP (Km)</label>
+            {{form.kc_trungtam}}
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-3 col-lg-2">
+        <div class="col-xs-3 col-lg-3">
           <div class="form-group">
-            <label class="control-label">accessible_buildings</label>
-            {{form.accessible_buildings}}
+            <label class="control-label">Khoảng cách tới sân bay (Km)</label>
+            {{form.kc_sanbay}}
           </div>
         </div>
-        <div class="col-xs-3 col-lg-2">
+        <div class="col-xs-3 col-lg-3">
           <div class="form-group field-homedata-bedrooms required">
-            <label class="control-label">family_quality</label>
-            {{form.family_quality}}
-          </div>
-        </div>
-        <div class="col-xs-3 col-lg-2">
-          <div class="form-group">
-            <label class="control-label">art_expos</label>
-            {{form.art_expos}}
-          </div>
-        </div>
-        <div class="col-xs-3 col-lg-2">
-          <div class="form-group">
-            <label class="control-label">emergency_shelters</label>
-            {{form.emergency_shelters}}
-          </div>
-        </div>
-        <div class="col-xs-3 col-lg-2">
-          <div class="form-group">
-            <label class="control-label">emergency_water</label>
-            {{form.emergency_water}}
-          </div>
-        </div>
-        <div class="col-xs-3 col-lg-2">
-          <div class="form-group">
-            <label class="control-label">Facilities</label>
-            {{form.Facilities}}
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-3 col-lg-2">
-          <div class="form-group">
-            <label class="control-label">fire_stations</label>
-            {{form.fire_stations}}
-          </div>
-        </div>
-        <div class="col-xs-3 col-lg-2">
-          <div class="form-group field-homedata-bedrooms required">
-            <label class="control-label">Cultural</label>
-            {{form.Cultural}}
-          </div>
-        </div>
-        <div class="col-xs-3 col-lg-2">
-          <div class="form-group">
-            <label class="control-label">Monuments</label>
-            {{form.Monuments}}
-          </div>
-        </div>
-        <div class="col-xs-3 col-lg-2">
-          <div class="form-group">
-            <label class="control-label">police_stations</label>
-            {{form.police_stations}}
-          </div>
-        </div>
-        <div class="col-xs-3 col-lg-2">
-          <div class="form-group">
-            <label class="control-label">Vacant</label>
-            {{form.Vacant}}
-          </div>
-        </div>
-        <div class="col-xs-3 col-lg-2">
-          <div class="form-group">
-            <label class="control-label">Free_Parking</label>
-            {{form.Free_Parking}}
+            <label class="control-label">Khoảng cách tới ga tàu điện (Km)</label>
+            {{form.kc_taudienngam}}
           </div>
         </div>
       </div>

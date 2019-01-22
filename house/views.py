@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from .models import Houses
+from .models import Houses, Train
 from .form import DemoForm, ContactForm
 from .fusioncharts import FusionCharts
 from collections import OrderedDict
+from .linear_regression import main
 
 ### Home View
 def home_page(request):
@@ -222,28 +223,20 @@ def demo_page(request):
 def predict(request):
     form=DemoForm(request.POST)
     if form.is_valid():
-        tongsp=form.cleaned_data['tongsophong']
-        sopt=form.cleaned_data['sophongtam']
-        sopn=form.cleaned_data['sophongngu']
-        dt=form.cleaned_data['dientich']
-        namxd=form.cleaned_data['namxaydung']
-        num_parking=form.cleaned_data['num_parking']
-        accessible_buildings=form.cleaned_data['accessible_buildings']
-        family_quality=form.cleaned_data['family_quality']
-        art_expos=form.cleaned_data['art_expos']
-        emergency_shelters=form.cleaned_data['emergency_shelters']
-        emergency_water=form.cleaned_data['emergency_water']
-        Facilities=form.cleaned_data['Facilities']
-        fire_stations=form.cleaned_data['fire_stations']
-        Cultural=form.cleaned_data['Cultural']
-        Monuments=form.cleaned_data['Monuments']
-        police_stations=form.cleaned_data['police_stations']
-        Vacant=form.cleaned_data['Vacant']
-        Free_Parking=form.cleaned_data['Free_Parking']
+      obj = Train.objects.all().order_by('-score')[0]
+      sopk=form.cleaned_data['sophongkhach']
+      sopt=form.cleaned_data['sophongtam']
+      sopn=form.cleaned_data['sophongngu']
+      dt=form.cleaned_data['dientich']
+      namxd=form.cleaned_data['namxaydung']
+      kc_trungtam=form.cleaned_data['kc_trungtam']
+      kc_sanbay=form.cleaned_data['kc_sanbay']
+      kc_taudienngam=form.cleaned_data['kc_taudienngam']
+      gia=int(sopk)*obj.coef_num_room+int(sopt)*obj.coef_num_bath+int(sopn)*obj.coef_num_bed
+      +float(dt)*obj.coef_living_area+int(namxd)*obj.coef_year_built+float(kc_trungtam)*obj.coef_distance_to_citycenter
+      +float(kc_sanbay)*obj.coef_distance_to_airport+float(kc_taudienngam)*obj.coef_distance_to_station
 
-        gia=int(tongsp)*13751.10116381+int(sopt)*89321.15969309+int(sopn)*6526.17965324+float(dt)*1035.54943042+int(namxd)*-144.05252464+int(num_parking)*1088.35985992+int(accessible_buildings)*-23292.72959269+int(family_quality)*-911.07133462+int(art_expos)*608.89750596+int(emergency_shelters)*-8713.4451033+int(emergency_water)*1953.67136794+int(Facilities)*597.20578898+int(fire_stations)*6222.19201123+int(Cultural)*-3639.5882536+int(Monuments)*3257.4615672+int(police_stations)*-9571.69925624+int(Vacant)*-2171.98986075+int(Free_Parking)*599.07022918 + 347150.604548
-
-    context = {'form':form, 'tongsp':tongsp, 'sopt':sopt, 'sopn':sopn, 'dt':dt, 'namxd':namxd, 'num_parking':num_parking, 'accessible_buildings':accessible_buildings, 'family_quality':family_quality, 'art_expos':art_expos, 'emergency_shelters':emergency_shelters, 'emergency_water':emergency_water, 'Facilities':Facilities, 'fire_stations':fire_stations, 'Cultural':Cultural, 'Monuments':Monuments, 'police_stations':police_stations, 'Vacant':Vacant, 'Free_Parking':Free_Parking, 'gia':int(gia)}
+    context = {'form':form, 'sopk':sopk, 'sopt':sopt, 'sopn':sopn, 'dt':dt, 'namxd':namxd, 'kc_trungtam':kc_trungtam, 'kc_sanbay':kc_sanbay, 'kc_taudienngam':kc_taudienngam, 'gia':int(gia)}
 
     return render(request, 'predict.html', context)
 
@@ -251,14 +244,29 @@ def predict(request):
 def load_house_data(request):
     house=Houses.objects.all()
     return render(request, 'others/load_house_data.html', {'house':house})
-# Chart
+
+def train(request):
+    train=Train(coef_distance_to_citycenter=main()[0][0],
+      coef_distance_to_airport=main()[0][1],
+      coef_distance_to_station=main()[0][2],
+      coef_year_built=main()[0][3],
+      coef_num_room=main()[0][4],
+      coef_num_bed=main()[0][5],
+      coef_num_bath=main()[0][6],
+      coef_living_area=main()[0][7],
+      score=main()[1]
+      )
+    train.save()
+    obj=Train.objects.all().order_by('-score')
+    return render(request, 'others/train.html', {'obj':obj})
+
 def chart(request):
     dataSource = OrderedDict()
     chartConfig = OrderedDict()
-    chartConfig["caption"] = "Countries With Most Oil Reserves [2017-18]"
-    chartConfig["subCaption"] = "In MMbbl = One Million barrels"
+    # chartConfig["caption"] = "Countries With Most Oil Reserves [2017-18]"
+    # chartConfig["subCaption"] = "In MMbbl = One Million barrels"
     chartConfig["xAxisName"] = "Room Number"
-    chartConfig["yAxisName"] = "Count"
+    chartConfig["yAxisName"] = "Prices"
     chartConfig["numberSuffix"] = "K"
     chartConfig["theme"] = "fusion"
 

@@ -3,7 +3,7 @@
 <div class="container">
   <table class="table table-hover">
     <tr>
-      <th>ID</th>
+      <!-- <th>ID</th> -->
       <th>Tong so phong</th>
       <th>So phong ngu</th>
       <th>So phong tam</th>
@@ -27,13 +27,13 @@
     </tr>
     {% for i in house %}
     <tr>
-        <th>{{i.id}}</th>
+        <!-- <th>{{i.id}}</th> -->
         <th>{{i.num_room}}</th>
         <th>{{i.num_room}}</th>
         <th>{{i.num_bath}}</th>
         <th>{{i.living_area}}</th>
         <th>{{i.year_built}}</th>
-        <th>property_type</th>
+        <th>{{i.property_type}}</th>
         <th>{{i.num_parking}}</th>
         <th>{{i.accessible_buildings}}</th>
         <th>{{i.family_quality}}</th>

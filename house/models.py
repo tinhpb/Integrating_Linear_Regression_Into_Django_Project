@@ -32,3 +32,15 @@ class Houses(models.Model):
 
     def __str__(self):
         return self.num_room
+
+
+class Train(models.Model):
+    coef_distance_to_citycenter = models.FloatField()
+    coef_distance_to_airport = models.FloatField()
+    coef_distance_to_station = models.FloatField()
+    coef_year_built = models.FloatField()
+    coef_num_room = models.FloatField()
+    coef_num_bed = models.FloatField()
+    coef_num_bath = models.FloatField()
+    coef_living_area = models.FloatField()
+    score=models.FloatField()
