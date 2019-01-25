@@ -44,12 +44,13 @@ def predict(request):
       kc_trungtam=form.cleaned_data['kc_trungtam']
       kc_sanbay=form.cleaned_data['kc_sanbay']
       kc_taudienngam=form.cleaned_data['kc_taudienngam']
-      gia=(int(sopk)*obj.coef_num_room)+(int(sopt)*obj.coef_num_bath)+(int(sopn)*obj.coef_num_bed)+(float(dt)*obj.coef_living_area)+(int(namxd)*obj.coef_year_built)+(float(kc_trungtam)*obj.coef_distance_to_citycenter)+(float(kc_sanbay)*obj.coef_distance_to_airport)+(float(kc_taudienngam)*obj.coef_distance_to_station) + obj.intercept
+      gia=(int(sophong)*obj.coef_num_room)+(int(sopt)*obj.coef_num_bath)+(int(sopn)*obj.coef_num_bed)+(float(dt)*obj.coef_living_area)+(int(namxd)*obj.coef_year_built)+(float(kc_trungtam)*obj.coef_distance_to_citycenter)+(float(kc_sanbay)*obj.coef_distance_to_airport)+(float(kc_taudienngam)*obj.coef_distance_to_station) + obj.intercept
 
     context = {'form':form,'sophong':sophong, 'sopt':sopt, 'sopn':sopn, 'dt':dt, 'namxd':namxd, 'kc_trungtam':kc_trungtam, 'kc_sanbay':kc_sanbay, 'kc_taudienngam':kc_taudienngam, 'gia':int(gia), 'dochinhxac':dochinhxac, 'saiso':saiso}
     return render(request, 'predict.html', context)
 
 def train(request):
+  # khi co 1 request no se goi ham main() trong file linear_regression.py de train model, ket qua lay ra se duoc luu vao models Train
     train=Train(coef_distance_to_citycenter=main()[0][0],
       coef_distance_to_airport=main()[0][1],
       coef_distance_to_station=main()[0][2],
@@ -63,5 +64,5 @@ def train(request):
       score=main()[3],
       )
     train.save()
-    obj=Train.objects.all().order_by('-score')
+    obj=Train.objects.all().order_by('-score') #sap xep theo score tu cao den thap roi show len
     return render(request, 'others/train.html', {'obj':obj})
