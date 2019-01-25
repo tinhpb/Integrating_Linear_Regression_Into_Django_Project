@@ -43,4 +43,6 @@ class Train(models.Model):
     coef_num_bed = models.FloatField()
     coef_num_bath = models.FloatField()
     coef_living_area = models.FloatField()
+    intercept=models.FloatField()
     score=models.FloatField()
+    rmse=models.FloatField(default=0)

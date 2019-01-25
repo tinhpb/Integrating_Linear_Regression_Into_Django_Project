@@ -2,15 +2,17 @@
 {% block table %}
 <table class="table table-bordered">
 	<tr class="info">
-		<th>Hệ số thuộc tính 1</th>
-		<th>Hệ số thuộc tính 2</th>
-		<th>Hệ số thuộc tính 3</th>
-		<th>Hệ số thuộc tính 4</th>
-		<th>Hệ số thuộc tính 5</th>
-		<th>Hệ số thuộc tính 6</th>
-		<th>Hệ số thuộc tính 7</th>
-		<th>Hệ số thuộc tính 8</th>
+		<th>w1</th>
+		<th>w2</th>
+		<th>w3</th>
+		<th>w4</th>
+		<th>w5</th>
+		<th>w6</th>
+		<th>w7</th>
+		<th>w8</th>
+		<th>w0</th>
 		<th>Điểm đánh giá mô hình</th>
+		<th>MAE</th>
 	</tr>
 	{% for i in obj %}
 	<tr>
@@ -22,7 +24,9 @@
 		<th>{{i.coef_num_bed}}</th>
 		<th>{{i.coef_num_bath}}</th>
 		<th>{{i.coef_living_area}}</th>
+		<th>{{i.intercept}}</th>
 		<th>{{i.score}}</th>
+		<th>{{i.rmse}}</th>
 	</tr>
 	{% endfor %}
 </table>

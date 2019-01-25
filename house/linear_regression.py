@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn import linear_model
+from sklearn import linear_model, metrics
 from sklearn.model_selection import train_test_split
 
 def getData():
@@ -10,29 +10,13 @@ def getData():
 
 def linearRegressionModel(X_train, Y_train, X_test, Y_test):
     linear = linear_model.LinearRegression()
-    # Training process
     linear.fit(X_train, Y_train)
-    # Evaluating the model
     score_trained = linear.score(X_test, Y_test)
-    # y_pre = linear.predict(X_test)
-    # print('--------------------------------------------------------')
-    # print('Gia du doan: '+ repr(int(y_pre[0])) + ', gia thuc te: ' + repr(int(Y_test[0])))
-    # print('--------------------------------------------------------')
-    # print('He so:', linear.coef_)
-    # print('--------------------------------------------------------')
-    return score_trained
-
-def heso(X_train, Y_train, X_test, Y_test):
-    linear = linear_model.LinearRegression()
-    # Training process
-    linear.fit(X_train, Y_train)
-    return linear.coef_
-
-def test():
-    print('hello')
-    return
+    y_pre = linear.predict(X_test)
+    return linear.coef_,linear.intercept_,np.sqrt(metrics.mean_absolute_error(Y_test, y_pre)),score_trained
 
 def main():
+
     data = getData()
     if data is not None:
         # Selection few attributes
@@ -52,12 +36,9 @@ def main():
         X = data[attributes]
         # Vector price of house
         Y = data['askprice']
-        
         # Split data to training test and testing test
         X_train, X_test, Y_train, Y_test = train_test_split(np.array(X), np.array(Y), test_size=0.2)
         
-        # Linear Regression Model
-        linearScore = linearRegressionModel(X_train, Y_train, X_test, Y_test)
-        # print ('Linear Score = ' , linearScore)
-        a=heso(X_train, Y_train, X_test, Y_test)
-        return a, linearScore
+        a,b,c,d=linearRegressionModel(X_train, Y_train, X_test, Y_test)
+        
+        return a,b,c,d

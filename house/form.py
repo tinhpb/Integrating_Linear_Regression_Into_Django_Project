@@ -1,11 +1,11 @@
 from django import forms
 
 class DemoForm(forms.Form):
-    sophongkhach = forms.CharField(widget=forms.TextInput(attrs={'type':'number', 'name':'SoPhongKhach', 'min':'1', 'max':'15', 'class':'span3 form-control', 'placeholder':'-----', 'required':''}))
+    sophong = forms.CharField(widget=forms.TextInput(attrs={'type':'number', 'name':'SoPhong', 'min':'1', 'max':'15', 'class':'span3 form-control', 'placeholder':'-----', 'required':''}))
     sophongngu = forms.CharField(widget=forms.TextInput(attrs={'type':'number', 'name':'SoPhongNgu', 'min':'1', 'max':'15', 'class':'span3 form-control', 'placeholder':'-----', 'required':''}))
     sophongtam = forms.CharField(widget=forms.TextInput(attrs={'type':'number','name':'SoPhongTam', 'min':'1', 'max':'10', 'class':'span3 form-control', 'placeholder':'-----', 'required':''}))
     dientich = forms.CharField(widget=forms.TextInput(attrs={'type':'number','name':'DienTich', 'min':'1', 'max':'1000', 'step':'0.01', 'class':'span3 form-control', 'placeholder':'-----', 'required':''}))
-    namxaydung = forms.CharField(widget=forms.TextInput(attrs={'type':'number','name':'NamXayDung', 'min':'1800', 'max':'2018', 'class':'span3 form-control', 'placeholder':'-----', 'required':''}))
+    namxaydung = forms.CharField(widget=forms.TextInput(attrs={'type':'number','name':'NamXayDung', 'min':'1800', 'max':'2019', 'class':'span3 form-control', 'placeholder':'-----', 'required':''}))
     kc_trungtam = forms.CharField(widget=forms.TextInput(attrs={'type':'number', 'name':'KCTrungTam', 'min':'1', 'max':'', 'step':'0.01','class':'span3 form-control', 'placeholder':'-----', 'required':''}))
     kc_sanbay = forms.CharField(widget=forms.TextInput(attrs={'type':'number', 'name':'KCSanBay', 'min':'1', 'max':'', 'step':'0.01','class':'span3 form-control', 'placeholder':'-----', 'required':''}))
     kc_taudienngam = forms.CharField(widget=forms.TextInput(attrs={'type':'number', 'name':'KCTauDienNgam', 'min':'1', 'max':'','step':'0.01', 'class':'span3 form-control', 'placeholder':'-----', 'required':''}))
