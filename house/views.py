@@ -1,68 +1,85 @@
 from django.shortcuts import render
-from .models import Houses, Train
-from .form import DemoForm, ContactForm
-from .fusioncharts import FusionCharts
-from collections import OrderedDict
+from .models import Train
+from .form import DemoForm
 from .linear_regression import main
 
-### Home View
+
 def home_page(request):
-    count = Houses.objects.all().count()
-    min = Houses.objects.all().order_by('askprice')[0]
-    max = Houses.objects.all().order_by('-askprice')[0]
-    return render(request, 'home.html',{'count':count, 'min':min, 'max':max})
+    return render(request, 'home.html')
 
-### About View
+
 def about_page(request):
-    return render(request, 'about.html', {})
+    return render(request, 'about.html')
 
-### Contact view
+
 def contact_page(request):
-    return render(request, 'contact.html', {})
+    return render(request, 'contact.html')
 
-### Demo View
+
 def demo_page(request):
-    form=DemoForm()
-    return render(request, 'demo.html', {'form':form})
+    form = DemoForm()
+    return render(request, 'demo.html', {'form': form})
+
 
 def chart_page(request):
-  return render(request, 'others/chart.html',{})
+    return render(request, 'others/chart.html')
 
-### Predict View
+
 def predict(request):
-    form=DemoForm(request.POST)
+    form = DemoForm(request.POST)
     if form.is_valid():
-      obj = Train.objects.all().order_by('-score')[0] #sap xep theo score tu cao den thap, va lay thang dau tien
-      dochinhxac=int(obj.score*100) #ep kieu de hien thi cho dep thoi
-      saiso=int(obj.rmse) #ep kieu de hien thi cho dep thoi
+        obj = Train.objects.all().order_by('-score')[0]
+        accuracy = int(obj.score * 100)
+        error = int(obj.rmse)
 
-      sophong=form.cleaned_data['sophong']
-      sopt=form.cleaned_data['sophongtam']
-      sopn=form.cleaned_data['sophongngu']
-      dt=form.cleaned_data['dientich']
-      namxd=form.cleaned_data['namxaydung']
-      kc_trungtam=form.cleaned_data['kc_trungtam']
-      kc_sanbay=form.cleaned_data['kc_sanbay']
-      kc_taudienngam=form.cleaned_data['kc_taudienngam']
-      gia=(int(sophong)*obj.coef_num_room)+(int(sopt)*obj.coef_num_bath)+(int(sopn)*obj.coef_num_bed)+(float(dt)*obj.coef_living_area)+(int(namxd)*obj.coef_year_built)+(float(kc_trungtam)*obj.coef_distance_to_citycenter)+(float(kc_sanbay)*obj.coef_distance_to_airport)+(float(kc_taudienngam)*obj.coef_distance_to_station) + obj.intercept
+        room_number_total = form.cleaned_data['room_number_total']
+        bathroom_number = form.cleaned_data['bathroom_number']
+        bedroom_number = form.cleaned_data['bedroom_number']
+        acreage = form.cleaned_data['acreage']
+        build_year = form.cleaned_data['build_year']
+        dist_to_center = form.cleaned_data['dist_to_center']
+        dist_to_airport = form.cleaned_data['dist_to_airport']
+        dist_to_station = form.cleaned_data['dist_to_station']
+        price = (int(room_number_total) * obj.coef_num_room) + \
+                (int(bathroom_number) * obj.coef_num_bath) + \
+                (int(bedroom_number) * obj.coef_num_bed) + \
+                (float(acreage) * obj.coef_living_area) + \
+                (int(build_year) * obj.coef_year_built) + \
+                (float(dist_to_center) * obj.coef_distance_to_citycenter) + \
+                (float(dist_to_airport) * obj.coef_distance_to_airport) + \
+                (float(dist_to_station) * obj.coef_distance_to_station) + obj.intercept
 
-    context = {'form':form,'sophong':sophong, 'sopt':sopt, 'sopn':sopn, 'dt':dt, 'namxd':namxd, 'kc_trungtam':kc_trungtam, 'kc_sanbay':kc_sanbay, 'kc_taudienngam':kc_taudienngam, 'gia':int(gia), 'dochinhxac':dochinhxac, 'saiso':saiso}
+    context = {
+        'form': form,
+        'room_number_total': room_number_total,
+        'bathroom_number': bathroom_number,
+        'bedroom_number': bedroom_number,
+        'acreage': acreage,
+        'build_year': build_year,
+        'dist_to_center': dist_to_center,
+        'dist_to_airport': dist_to_airport,
+        'dist_to_station': dist_to_station,
+        'price': int(price),
+        'accuracy': accuracy,
+        'error': error
+    }
     return render(request, 'predict.html', context)
 
+
 def train(request):
-  # khi co 1 request no se goi ham main() trong file linear_regression.py de train model, ket qua lay ra se duoc luu vao models Train
-    train=Train(coef_distance_to_citycenter=main()[0][0],
-      coef_distance_to_airport=main()[0][1],
-      coef_distance_to_station=main()[0][2],
-      coef_year_built=main()[0][3],
-      coef_num_room=main()[0][4],
-      coef_num_bed=main()[0][5],
-      coef_num_bath=main()[0][6],
-      coef_living_area=main()[0][7],
-      intercept=main()[1],
-      rmse=main()[2],
-      score=main()[3],
-      )
+    train = Train(
+        coef_distance_to_citycenter=main()[0][0],
+        coef_distance_to_airport=main()[0][1],
+        coef_distance_to_station=main()[0][2],
+        coef_year_built=main()[0][3],
+        coef_num_room=main()[0][4],
+        coef_num_bed=main()[0][5],
+        coef_num_bath=main()[0][6],
+        coef_living_area=main()[0][7],
+        intercept=main()[1],
+        rmse=main()[2],
+        score=main()[3],
+    )
     train.save()
-    obj=Train.objects.all().order_by('-score') #sap xep theo score tu cao den thap roi show len
-    return render(request, 'others/train.html', {'obj':obj})
+    obj = Train.objects.all().order_by('-score')
+    return render(request, 'others/train.html', {'obj': obj})
