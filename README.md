@@ -18,7 +18,9 @@ Running in localhost:
 
 ```sh
 $ cd Integrating_Linear_Regression_Into_Django_Project
+$ python manage.py makemigrations
+$ python manage.py migrate
 $ python manage.py runserver
 ```
 ### Link demo
-[Demo](https://phambatinh.pythonanywhere.com/)
+[Demo](https://tinhpb.pythonanywhere.com/)
