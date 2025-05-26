@@ -20,49 +20,49 @@
           <div class="form-group">
             <label class="control-label">Số phòng</label>
           <!-- <input type="number" min="1" max="5" class="span3 form-control" name="TongSoPhong" placeholder="----" required> -->
-            {{form.sophong}}
+            {{form.room_number_total}}
           </div>
         </div>
         <div class="col-xs-3 col-lg-3">
           <div class="form-group field-homedata-bedrooms required">
             <label class="control-label">Số phòng ngủ</label>
-            {{form.sophongngu}}
+            {{form.bedroom_number}}
           </div>
         </div>
         <div class="col-xs-3 col-lg-3">
           <div class="form-group">
             <label class="control-label">Số phòng tắm</label>
-            {{form.sophongtam}}
+            {{form.bathroom_number}}
           </div>
         </div>
         <div class="col-xs-3 col-lg-3">
           <div class="form-group">
             <label class="control-label">Diện tích</label>
-            {{form.dientich}}
+            {{form.acreage}}
           </div>
         </div>
         <div class="col-xs-3 col-lg-3">
           <div class="form-group">
             <label class="control-label">Năm xây dựng</label>
-            {{form.namxaydung}}
+            {{form.build_year}}
           </div>
         </div>
         <div class="col-xs-3 col-lg-3">
           <div class="form-group">
             <label class="control-label">Khoảng cách tới trung tâm TP (Km)</label>
-            {{form.kc_trungtam}}
+            {{form.dist_to_center}}
           </div>
         </div>
         <div class="col-xs-3 col-lg-3">
           <div class="form-group">
             <label class="control-label">Khoảng cách tới sân bay (Km)</label>
-            {{form.kc_sanbay}}
+            {{form.dist_to_airport}}
           </div>
         </div>
         <div class="col-xs-3 col-lg-3">
           <div class="form-group field-homedata-bedrooms required">
             <label class="control-label">Khoảng cách tới ga tàu điện (Km)</label>
-            {{form.kc_taudienngam}}
+            {{form.dist_to_station}}
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@
           <button type="submit" class="btn btn-success" name="DuDoan">Dự đoán</button>
         </div>
         <div class="col-md-10">
-          <h4><em class="text-success">Giá nhà được dự đoán là: <mark>$ {{gia}}</mark>, với độ chính xác là <mark>{{dochinhxac}} % </mark>, và sai số trung bình khoảng <mark>±{{saiso}}</mark></em></h4>
+          <h4><em class="text-success">Giá nhà được dự đoán là: <mark>$ {{price}}</mark>, với độ chính xác là <mark>{{accuracy}} % </mark>, và sai số trung bình khoảng <mark>±{{error}}</mark></em></h4>
         </div>
       </div>
     </form>
